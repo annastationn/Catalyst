@@ -100,10 +100,6 @@ const config = {
       },
       navbar: {
         title: 'Catalyst Docs',
-        logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
-        },
         items: [
           {
             type: 'docSidebar',
@@ -148,15 +144,11 @@ const config = {
             ],
           },
           {
-            title: 'More',
+            title: 'Project',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/annastationn/Catalyst',
               },
             ],
           },
