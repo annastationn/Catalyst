@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "docusaurus-plugin-openapi-docs": "^5.0.2"
+    "docusaurus-plugin-openapi-docs": "^5.0.2",
+    "docusaurus-theme-openapi-docs": "^5.0.2"
   }
 }
