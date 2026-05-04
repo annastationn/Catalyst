@@ -39,26 +39,26 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  themes: ['docusaurus-theme-openapi-docs'],
+  // themes: ['docusaurus-theme-openapi-docs'],
 
-  plugins: [
-    [
-      'docusaurus-plugin-openapi-docs',
-      {
-        id: 'api',
-        docsPluginId: 'classic',
-        config: {
-          api: {
-            specPath: 'api_specs/openapi.yaml',
-            outputDir: 'docs/api/reference',
-            sidebarOptions: {
-              groupPathsBy: 'tag',
-            },
-          },
-        },
-      },
-    ],
-  ],
+  // plugins: [
+  //   [
+  //     'docusaurus-plugin-openapi-docs',
+  //     {
+  //       id: 'api',
+  //       docsPluginId: 'classic',
+  //       config: {
+  //         api: {
+  //           specPath: 'api_specs/openapi.yaml',
+  //           outputDir: 'docs/api/reference',
+  //           sidebarOptions: {
+  //             groupPathsBy: 'tag',
+  //           },
+  //         },
+  //       },
+  //     },
+  //   ],
+  // ],
   
   presets: [
     [
@@ -69,8 +69,6 @@ const config = {
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,

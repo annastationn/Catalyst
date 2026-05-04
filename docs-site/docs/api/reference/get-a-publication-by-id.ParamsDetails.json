@@ -1,1 +1,0 @@
-{"parameters":[{"name":"id","in":"path","required":true,"description":"id of the publication","schema":{"type":"string","example":"39501"}}]}
