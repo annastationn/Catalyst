@@ -78,5 +78,5 @@ sidebar_position: 3
 
 ---
 :::note Источник артефакта:  
-https://www.buildin.ai/c30afe7d-b876-4aae-a74a-36f448fadacd
+[https://unidraw.io/app/board/c5d1907ad75678db06c2](https://unidraw.io/app/board/c5d1907ad75678db06c2)
 :::
