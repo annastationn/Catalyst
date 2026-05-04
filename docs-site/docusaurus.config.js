@@ -39,7 +39,27 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  themes: ['docusaurus-theme-openapi-docs'],
 
+  plugins: [
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: 'api',
+        docsPluginId: 'classic',
+        config: {
+          api: {
+            specPath: 'api_specs/openapi.yaml',
+            outputDir: 'docs/api/reference',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+            },
+          },
+        },
+      },
+    ],
+  ],
+  
   presets: [
     [
       'classic',

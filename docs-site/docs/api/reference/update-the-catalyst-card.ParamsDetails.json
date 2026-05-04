@@ -1,0 +1,1 @@
+{"parameters":[{"name":"id","in":"path","required":true,"description":"id of the catalyst card","schema":{"type":"string","example":"19023"}}]}

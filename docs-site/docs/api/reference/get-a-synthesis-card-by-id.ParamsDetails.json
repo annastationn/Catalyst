@@ -1,0 +1,1 @@
+{"parameters":[{"name":"id","in":"path","required":true,"description":"id of the synthesis card","schema":{"type":"string","example":"58201"}}]}
