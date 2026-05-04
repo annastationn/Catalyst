@@ -26,6 +26,7 @@ description: HTTP-статусы и ошибки REST API
   "error_code": "NOT_FOUND",
   "message": "Resource not found"
 }
+```
 
 ## Коды ошибок в теле ответа
 
