@@ -71,5 +71,6 @@ sidebar_position: 2
 
 ---
 
-:::note Источник артефакта: https://www.buildin.ai/d77cca9c-3d3f-4193-b83d-ffc9145927d8
+:::note 
+Источник артефакта: https://www.buildin.ai/d77cca9c-3d3f-4193-b83d-ffc9145927d8
 :::

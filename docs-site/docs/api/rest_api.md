@@ -708,7 +708,10 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
 ```
 </details>
+
 ---
+
 :::note 
-Источник артефакта: https://www.buildin.ai/ab6c6d54-ecc7-4478-8574-efc150417cab
+Источник артефакта
+ https://www.buildin.ai/ab6c6d54-ecc7-4478-8574-efc150417cab
 :::

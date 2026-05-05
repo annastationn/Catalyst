@@ -77,7 +77,8 @@ sidebar_position: 3
 - Ошибки сохранения в БД
 
 ---
+
 :::note 
-Источник артефакта:  
+Источник артефакта
 [https://unidraw.io/app/board/c5d1907ad75678db06c2](https://unidraw.io/app/board/c5d1907ad75678db06c2)
 :::
