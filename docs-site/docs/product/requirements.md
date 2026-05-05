@@ -84,7 +84,7 @@ sidebar_position: 3
 ---
 
 :::note 
-Источник артефакта:  
+Источник артефакта  
 https://www.buildin.ai/37676999-0098-4925-8b28-0b420b4dc6db  
 https://www.buildin.ai/0b325177-ae9e-427e-805f-abb89fe60f5b
 :::

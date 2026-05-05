@@ -5,6 +5,7 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {themes as prismThemes} from 'prism-react-renderer';
+import {remarkKroki} from 'remark-kroki';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -65,8 +66,16 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
+          remarkPlugins: [
+            [
+              remarkKroki,
+              {
+                server: 'https://kroki.io',
+                target: 'mdx3',
+                alias: ['plantuml']
+              },
+            ],
+          ],
         },
         blog: {
           showReadingTime: true,
