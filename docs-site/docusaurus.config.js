@@ -38,66 +38,53 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-  // themes: ['docusaurus-theme-openapi-docs'],
-
-  // plugins: [
-  //   [
-  //     'docusaurus-plugin-openapi-docs',
-  //     {
-  //       id: 'api',
-  //       docsPluginId: 'classic',
-  //       config: {
-  //         api: {
-  //           specPath: 'api_specs/openapi.yaml',
-  //           outputDir: 'docs/api/reference',
-  //           sidebarOptions: {
-  //             groupPathsBy: 'tag',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   ],
-  // ],
+  
   
   presets: [
-    [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          sidebarPath: './sidebars.js',
-          remarkPlugins: [
-            [
-              remarkKroki,
-              {
-                server: 'https://kroki.io',
-                target: 'mdx3',
-                alias: ['plantuml']
-              },
-            ],
+  [
+    'classic',
+    ({
+      docs: {
+        sidebarPath: './sidebars.js',
+        remarkPlugins: [
+          [
+            remarkKroki,
+            {
+              server: 'https://kroki.io',
+              alias: ['plantuml'],
+              target: 'mdx3',
+            },
           ],
+        ],
+      },
+      blog: {
+        showReadingTime: true,
+        feedOptions: {
+          type: ['rss', 'atom'],
+          xslt: true,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
-      }),
-    ],
+        onInlineTags: 'warn',
+        onInlineAuthors: 'warn',
+        onUntruncatedBlogPosts: 'warn',
+      },
+      theme: {
+        customCss: './src/css/custom.css',
+      },
+    }),
   ],
+  [
+    'redocusaurus',
+    {
+      specs: [
+        {
+          id: 'catalyst-api',
+          spec: 'openapi.yaml',
+          route: '/api',
+        },
+      ],
+    },
+  ],
+],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

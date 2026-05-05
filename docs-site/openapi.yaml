@@ -1,17 +1,3 @@
----
-title: REST API
-sidebar_position: 1
-description: Описание REST API системы обработки публикаций
----
-# REST API
-## OpenAPI-спецификация
-
-Ниже представлена полная OpenAPI-спецификация REST API системы
-
-<details>
-<summary>Показать OpenAPI YAML</summary>
-
-```yaml
 openapi: 3.0.0
 info:
   title: Catalyst Processing API
@@ -706,12 +692,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-```
-</details>
-
----
-
-:::note 
-Источник артефакта
- https://www.buildin.ai/ab6c6d54-ecc7-4478-8574-efc150417cab
-:::
