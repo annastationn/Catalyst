@@ -14,19 +14,18 @@ hide_table_of_contents: false
 ```plantuml
 @startuml
 
-actor "Исследователь" as researcher
+title C1 — Системная контекстная диаграмма
+actor "Химик-исследователь" as researcher
 actor "Администратор" as admin
 
-rectangle "Processing System" as system {
-}
+rectangle "Catalyst Processing System\n\nСистема обработки научных публикаций\nи формирования карточек катализаторов" as system
+rectangle "Object Storage\n\nPDF-файлы и изображения структур" as storage
+database "PostgreSQL\n\nПубликации, карточки катализаторов,\nсинтезы и статусы обработки" as db
 
-rectangle "Object Storage" as storage
-database "PostgreSQL" as db
-
-researcher --> system : загружает публикации,\nпросматривает карточки
-admin --> system : управляет пользователями\nи проверяет корректность данных
-system --> storage : сохраняет PDF\nи изображения
-system --> db : хранит метаданные
+researcher --> system : загружает публикации\nпросматривает результаты
+admin --> system : редактирует данные\nконтролирует обработку
+system --> storage : сохраняет и получает файл
+system --> db : читает и записывает данные
 
 @enduml
 ```
