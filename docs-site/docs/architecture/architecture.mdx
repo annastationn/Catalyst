@@ -37,28 +37,31 @@ system --> db : читает и записывает данные
 ```plantuml
 @startuml
 
-actor "Исследователь" as researcher
+title C2 — Контейнерная диаграмма
+actor "Химик-исследователь" as researcher
 actor "Администратор" as admin
-
-rectangle "Frontend" as frontend
-rectangle "API Service" as api
-rectangle "Processing Service" as processing
-queue "RabbitMQ" as rabbitmq
-database "PostgreSQL" as db
-rectangle "Object Storage" as storage
+rectangle "Catalyst Processing System" {
+  rectangle "Web UI\n\nИнтерфейс загрузки публикаций,\nпросмотра архива и карточек" as frontend
+  rectangle "Backend/API\n\nREST API, управление публикациями,\nкарточками и статусами" as api
+  queue "Очередь задач\n\nЗадачи асинхронной обработки" as queue
+  rectangle "Processing Service\n\nОбработка публикаций,\nзапуск извлечения данных" as processing
+  rectangle "ML/NLP Extractor\n\nИзвлечение параметров синтеза\nи данных о катализаторах" as extractor
+  database "PostgreSQL\n\nСтруктурированные данные" as db
+  rectangle "Object Storage\n\nPDF-файлы и изображения" as storage
+}
 
 researcher --> frontend : работает с интерфейсом
 admin --> frontend : управляет данными
-
 frontend --> api : REST API
 api --> db : SQL-запросы
-api --> storage : сохраняет PDF и изображения
-api --> rabbitmq : publication.request
-rabbitmq --> processing : задача на обработку
-processing --> storage : читает файл публикации
-processing --> rabbitmq : publication.result
-rabbitmq --> api : результат обработки
-api --> db : обновляет статус и данные
+api --> storage : сохраняет PDF\nи изображения
+api --> queue : создает задачу обработки
+queue --> processing : передает задачу
+processing --> storage : получает файл публикации
+processing --> extractor : передает текст\nи метаданные
+extractor --> processing : возвращает извлеченные данные
+processing --> db : сохраняет результат
+processing --> queue : возвращает статус обработки
 
 @enduml
 ```
