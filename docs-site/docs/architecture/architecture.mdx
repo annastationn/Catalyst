@@ -13,26 +13,23 @@ hide_table_of_contents: false
 
 ```plantuml
 @startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
-' Определяем внешних пользователей
+LAYOUT_TOP_DOWN()
+
+title System Context diagram — Catalyst Processing System
 Person(researcher, "Химик-исследователь", "Исследователь, загружающий публикации и анализирующий карточки катализаторов")
 Person(admin, "Администратор", "Управляет данными и контролирует процесс обработки")
-
-' Основная система
 System(catalystSystem, "Catalyst Processing System", "Система обработки научных публикаций и формирования карточек катализаторов")
+System_Ext(storage, "Object Storage", "Хранение PDF-файлов публикаций и изображений химических структур")
+SystemDb_Ext(database, "PostgreSQL", "Хранение публикаций, карточек катализаторов, данных о синтезах и статусах обработки")
 
-' Внешние компоненты
-System_Boundary(storage_boundary, "Object Storage") {
-    System(storage, "Хранилище объектов", "Хранение PDF-файлов и изображений химических структур")
-}
+Rel(researcher, catalystSystem, "Загружает публикации и просматривает результаты")
+Rel(admin, catalystSystem, "Редактирует данные и контролирует обработку")
 
-SystemDb(database, "PostgreSQL", "Хранение публикаций, карточек катализаторов, данных о синтезах и статусах обработки")
-
-' Отношения
-Rel(researcher, catalystSystem, "Загружает публикации, просматривает результаты")
-Rel(admin, catalystSystem, "Редактирует данные, контролирует обработку")
-Rel(catalystSystem, storage, "Сохраняет и извлекает PDF и изображения")
+Rel(catalystSystem, storage, "Сохраняет и извлекает PDF-файлы и изображения")
 Rel(catalystSystem, database, "Читает и записывает структурированные данные")
+
 @enduml
 ```
 
