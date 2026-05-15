@@ -13,14 +13,17 @@ hide_table_of_contents: false
 
 ```plantuml
 @startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 LAYOUT_TOP_DOWN()
 
 title System Context diagram — Catalyst Processing System
+
 Person(researcher, "Химик-исследователь", "Исследователь, загружающий публикации и анализирующий карточки катализаторов")
 Person(admin, "Администратор", "Управляет данными и контролирует процесс обработки")
+
 System(catalystSystem, "Catalyst Processing System", "Система обработки научных публикаций и формирования карточек катализаторов")
+
 System_Ext(storage, "Object Storage", "Хранение PDF-файлов публикаций и изображений химических структур")
 SystemDb_Ext(database, "PostgreSQL", "Хранение публикаций, карточек катализаторов, данных о синтезах и статусах обработки")
 
@@ -39,6 +42,7 @@ Rel(catalystSystem, database, "Читает и записывает структ
 
 ```plantuml
 @startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 LAYOUT_TOP_DOWN()
 
