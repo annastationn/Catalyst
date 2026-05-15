@@ -13,18 +13,26 @@ hide_table_of_contents: false
 
 ```plantuml
 @startuml
-actor "Химик-исследователь" as researcher
-actor "Администратор" as admin
 
-rectangle "Catalyst Processing System\n\nСистема обработки научных публикаций\nи формирования карточек катализаторов" as system
-rectangle "Object Storage\n\nPDF-файлы и изображения структур" as storage
-database "PostgreSQL\n\nПубликации, карточки катализаторов,\nсинтезы и статусы обработки" as db
+' Определяем внешних пользователей
+Person(researcher, "Химик-исследователь", "Исследователь, загружающий публикации и анализирующий карточки катализаторов")
+Person(admin, "Администратор", "Управляет данными и контролирует процесс обработки")
 
-researcher --> system : загружает публикации\nпросматривает результаты
-admin --> system : редактирует данные\nконтролирует обработку
-system --> storage : сохраняет и получает файл
-system --> db : читает и записывает данные
+' Основная система
+System(catalystSystem, "Catalyst Processing System", "Система обработки научных публикаций и формирования карточек катализаторов")
 
+' Внешние компоненты
+System_Boundary(storage_boundary, "Object Storage") {
+    System(storage, "Хранилище объектов", "Хранение PDF-файлов и изображений химических структур")
+}
+
+SystemDb(database, "PostgreSQL", "Хранение публикаций, карточек катализаторов, данных о синтезах и статусах обработки")
+
+' Отношения
+Rel(researcher, catalystSystem, "Загружает публикации, просматривает результаты")
+Rel(admin, catalystSystem, "Редактирует данные, контролирует обработку")
+Rel(catalystSystem, storage, "Сохраняет и извлекает PDF и изображения")
+Rel(catalystSystem, database, "Читает и записывает структурированные данные")
 @enduml
 ```
 
@@ -34,30 +42,46 @@ system --> db : читает и записывает данные
 
 ```plantuml
 @startuml
-actor "Химик-исследователь" as researcher
-actor "Администратор" as admin
-rectangle "Catalyst Processing System" {
-  rectangle "Web UI\n\nИнтерфейс загрузки публикаций,\nпросмотра архива и карточек" as frontend
-  rectangle "Backend/API\n\nREST API, управление публикациями,\nкарточками и статусами" as api
-  queue "Очередь задач\n\nЗадачи асинхронной обработки" as queue
-  rectangle "Processing Service\n\nОбработка публикаций,\nзапуск извлечения данных" as processing
-  rectangle "ML/NLP Extractor\n\nИзвлечение параметров синтеза\nи данных о катализаторах" as extractor
-  database "PostgreSQL\n\nСтруктурированные данные" as db
-  rectangle "Object Storage\n\nPDF-файлы и изображения" as storage
+
+LAYOUT_TOP_DOWN()
+
+title Container diagram — Catalyst Processing System
+
+Person(researcher, "Химик-исследователь", "Загружает научные публикации, просматривает архив и карточки катализаторов")
+Person(admin, "Администратор", "Управляет данными и контролирует процесс обработки")
+
+System_Boundary(catalystSystem, "Catalyst Processing System") {
+
+    Container(webUi, "Web UI", "Frontend", "Интерфейс загрузки публикаций, просмотра архива и карточек катализаторов")
+
+    Container(backendApi, "Backend/API", "REST API", "Управление публикациями, карточками катализаторов, пользователями и статусами обработки")
+
+    ContainerQueue(taskQueue, "Очередь задач", "Message Queue", "Очередь задач асинхронной обработки публикаций")
+
+    Container(processingService, "Processing Service", "Backend Worker", "Обработка публикаций, управление пайплайном извлечения данных")
+
+    Container(mlExtractor, "ML/NLP Extractor", "ML/NLP Service", "Извлечение параметров синтеза и данных о катализаторах из текста публикаций")
+
+    ContainerDb(database, "PostgreSQL", "Relational Database", "Структурированные данные: публикации, карточки катализаторов, синтезы, статусы обработки")
+
+    Container(storage, "Object Storage", "File Storage", "PDF-файлы публикаций и изображения химических структур")
 }
 
-researcher --> frontend : работает с интерфейсом
-admin --> frontend : управляет данными
-frontend --> api : REST API
-api --> db : SQL-запросы
-api --> storage : сохраняет PDF\nи изображения
-api --> queue : создает задачу обработки
-queue --> processing : передает задачу
-processing --> storage : получает файл публикации
-processing --> extractor : передает текст\nи метаданные
-extractor --> processing : возвращает извлеченные данные
-processing --> db : сохраняет результат
-processing --> queue : возвращает статус обработки
+Rel(researcher, webUi, "Работает с интерфейсом")
+Rel(admin, webUi, "Управляет данными через интерфейс")
+
+Rel(webUi, backendApi, "Отправляет запросы", "REST API")
+
+Rel(backendApi, database, "Читает и записывает данные")
+Rel(backendApi, storage, "Сохраняет и получает PDF-файлы и изображения")
+Rel(backendApi, taskQueue, "Создаёт задачу обработки", "Message")
+
+Rel(taskQueue, processingService, "Передаёт задачу обработки", "Message")
+
+Rel(processingService, backendApi, "Запрашивает данные публикации, передаёт результат обработки и обновляет статус", "REST API")
+Rel(processingService, storage, "Получает файл публикации")
+Rel(processingService, mlExtractor, "Передаёт текст и метаданные для извлечения")
+Rel(mlExtractor, processingService, "Возвращает извлечённые данные")
 
 @enduml
 ```
